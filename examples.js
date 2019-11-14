@@ -19,18 +19,20 @@ function bubbleSort(array) {
   return array;
 }
 
-function mergeSort(array) {
+function mergeSort(array, counter = 0) {
   if (array.length <= 1) {
     return array;
   }
-
+  counter++;
   const middle = Math.floor(array.length / 2);
   let left = array.slice(0, middle);
   let right = array.slice(middle, array.length);
 
-  left = mergeSort(left);
-  right = mergeSort(right);
-  return merge(left, right, array);
+  console.log(left, right, counter);
+
+  left = mergeSort(left, counter);
+  right = mergeSort(right, counter);
+  return merge(left, right, array, counter);
 }
 
 function merge(left, right, array) {
@@ -52,6 +54,8 @@ function merge(left, right, array) {
   for (let i = rightIndex; i < right.length; i++) {
     array[outputIndex++] = right[i];
   }
+  //console.log(array);
+
   return array;
 }
 
@@ -59,6 +63,8 @@ function quickSort(array, start = 0, end = array.length) {
   if (start >= end) {
     return array;
   }
+  console.log(array, start, end);
+
   const middle = partition(array, start, end);
   array = quickSort(array, start, middle);
   array = quickSort(array, middle + 1, end);
@@ -80,5 +86,7 @@ function partition(array, start, end) {
 
 function main(){
 
+  let input = [14, 17, 13, 15, 19, 10, 3, 16, 9, 12];
+  quickSort(input);
 }
 main();
