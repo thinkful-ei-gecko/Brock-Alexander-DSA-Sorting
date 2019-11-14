@@ -137,6 +137,51 @@ arr.forEach(item => {
   list.insertFirst(item);
 });
 
-console.log(mergeSortLL(list));
+// console.log(mergeSortLL(list));
 
 // main();
+
+function bucketSort(array, max, min) {
+  let result = [];
+
+  for (let i = 0; i < max; i++) {
+    result[i] = 'EMPTY';
+  }
+
+  for (let i = 0; i < array.length; i++) {
+    result[array[i] - min] = array[i];
+  }
+
+  return result.filter(item => item !== 'EMPTY');
+}
+
+// console.log(bucketSort(arr, 19, 3));
+
+function shuffled(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    let randomIndex = Math.floor(Math.random() * arr.length);
+    swap(arr, i, randomIndex);
+  }
+  return arr;
+}
+
+console.log(shuffled(arr));
+
+let books = ['Book 1', 'Book 2', 'Alice in Sadland', 'Suicide is Painless', 'whatever', 'Sadbook'];
+
+function bookSorter(array) {
+  let swaps = 0;
+  for (let i = 0; i < array.length - 1; i++) {
+    if (array[i] > array[i + 1]) {
+      swap(array, i, i + 1);
+      swaps++;
+    }
+  }
+
+  if (swaps > 0) {
+    return bubbleSort(array);
+  }
+  return array;
+}
+
+console.log(bookSorter(books));
