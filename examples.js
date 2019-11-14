@@ -1,3 +1,5 @@
+const LinkedList = require('./LinkedList');
+
 function swap(array, i, j) {
   const tmp = array[i];
   array[i] = array[j];
@@ -28,7 +30,7 @@ function mergeSort(array, counter = 0) {
   let left = array.slice(0, middle);
   let right = array.slice(middle, array.length);
 
-  console.log(left, right, counter);
+  // console.log(left, right, counter);
 
   left = mergeSort(left, counter);
   right = mergeSort(right, counter);
@@ -63,7 +65,6 @@ function quickSort(array, start = 0, end = array.length) {
   if (start >= end) {
     return array;
   }
-  console.log(array, start, end);
 
   const middle = partition(array, start, end);
   array = quickSort(array, start, middle);
@@ -84,9 +85,58 @@ function partition(array, start, end) {
   return j;
 }
 
-function main(){
+// function main() {
+//   let input = [14, 17, 13, 15, 19, 10, 3, 16, 9, 12];
+//   quickSort(input);
+// }
 
-  let input = [14, 17, 13, 15, 19, 10, 3, 16, 9, 12];
-  quickSort(input);
+
+/////
+
+function size(list) {
+  let currentNode = list.head;
+  let counter = 0;
+
+  while (currentNode.next !== null) {
+    currentNode = currentNode.next;
+    counter++;
+  }
+  return counter;
 }
-main();
+
+function findPrevious(list, item) {
+  let currentNode = list.head;
+  let previousNode = list.head;
+
+  if (list.head === item) {
+    return null;
+  }
+
+  while (currentNode.value !== item && currentNode.next !== null) {
+    currentNode = currentNode.next;
+    if (currentNode.value === item) {
+      return previousNode.value;
+    }
+    previousNode = currentNode;
+  }
+}
+
+function mergeSortLL(LL) {
+  const llAsArr = [];
+  while (LL.head) {
+    llAsArr.push(LL.head.value);
+    LL.remove(LL.head.value);
+  }
+  return mergeSort(llAsArr);
+}
+
+const list = new LinkedList();
+const arr = [14, 17, 4, 13, 15, 19, 10, 3, 16, 9, 12];
+
+arr.forEach(item => {
+  list.insertFirst(item);
+});
+
+console.log(mergeSortLL(list));
+
+// main();
